@@ -35,13 +35,13 @@ class User
 
     }
 
-    public function updateUserInfos($id,$updateData)
+    public function updateUserInfos($id, $updateData)
     {
         global $pdo;
 
         $updateUserSql = "UPDATE users SET userName=?, phone=?, email=?, userPassword=? WHERE id=?";
 
-        $stmt = $pdo->prepare( $updateUserSql);
+        $stmt = $pdo->prepare($updateUserSql);
 
         return $stmt->execute([
             $updateData['userName'],
@@ -52,5 +52,4 @@ class User
             $id
         ]);
     }
-    
 }
