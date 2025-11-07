@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Memória</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+      .card.revealed { transform: none !important; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="main-header">
+            <div class="welcome-message">
+                Bem-vindo, <span id="playerName">Jogador</span>!
+            </div>
+            <nav>
+                <a href="jogo.html" class="active">Jogar</a>
+                <a href="ranking.html">Ranking Global</a>
+                <a href="perfil.html">Editar Perfil</a>
+                <a href="index.html" id="logoutLink">Desconectar</a>
+            </nav>
+        </header>
+        <main class="game-page-layout">
+            <aside class="game-info">
+                <section class="game-setup">
+                    <h3>Menu</h3>
+                    <a href="config.html" class="btn">Nova Partida</a>
+                </section>
+                <section class="game-status">
+                    <h3>Informações da Partida</h3>
+                    <div class="info-item">Configuração: <span id="confValue">--</span></div>
+                    <div class="info-item">Modalidade: <span id="modeValue">--</span></div>
+                    <div class="info-item">Tempo: <span id="timeValue">00:00</span></div>
+                    <div class="info-item">Jogadas: <span id="movesValue">0</span></div>
+                    <div class="info-item">Tempo Restante: <span id="remainValue">--:--</span></div>
+                </section>
+                <section class="game-actions">
+                    <h3>Ações do Jogo</h3>
+                    <button class="btn" id="btnGiveUp">Desistir</button>
+                    <button class="btn cheat-on" id="btnCheatOn">Modo Trapaça (ON)</button>
+                    <button class="btn cheat-off" id="btnCheatOff">Modo Trapaça (OFF)</button>
+                </section>
+            </aside>
+            <section class="game-board-container">
+                <h2>Jogo da Memória</h2>
+                <div id="board" class="game-board" role="grid" aria-label="Tabuleiro do jogo da memória"></div>
+            </section>
+            <aside class="game-history">
+                <h3>Seu Histórico (sessão atual)</h3>
+                <table id="sessionHistory">
+                    <thead>
+                        <tr>
+                            <th>Dimensões</th>
+                            <th>Modo</th>
+                            <th>Jogadas</th>
+                            <th>Tempo</th>
+                            <th>Resultado</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </aside>
+        </main>
+    </div>
+    <script src="jogo.js"></script>
+</body>
+</html>
