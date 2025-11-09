@@ -31,7 +31,7 @@ class User
         $findUserSql = "SELECT * FROM users WHERE username = ? LIMIT 1"; // limita a 1 para otimizar a consulta
         $stmt = $pdo->prepare($findUserSql);
         $stmt->execute([$username]);
-        //provavelmente teremos que retornar os dados do user, porem até o memomento nao precisamos
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }
 
