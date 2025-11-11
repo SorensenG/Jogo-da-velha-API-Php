@@ -20,7 +20,7 @@ class RankingController
             ];
         } else {
             return [
-                'status' => '404 not faund',
+                'status' => '404 not found',
                 'message' => 'Sem jogadores no ranking'
             ];
         }
