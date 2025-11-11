@@ -16,6 +16,7 @@ class RankingController
             return [
                 'status' => '200 ok',
                 'message' => 'top 10 players ranked sucessefully',
+                'data' => $topPlayers
             ];
         } else {
             return [
