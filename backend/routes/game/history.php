@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/../controller/GameController.php';
+require_once __DIR__ . '/../controllers/GameController.php';
 
 // pega userId da URL: /history.php?userId=123
 $userId = filter_input(INPUT_GET, 'userId', FILTER_VALIDATE_INT);
