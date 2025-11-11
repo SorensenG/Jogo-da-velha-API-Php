@@ -38,7 +38,7 @@ class GameMatch
     }
 
 
-    public function topMatchs()
+    public function topPlayers()
     {
 
         global $pdo;
@@ -51,7 +51,6 @@ class GameMatch
                 LIMIT 10";
 
         $stmt = $pdo->query($topMatchSQL);
-        $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
