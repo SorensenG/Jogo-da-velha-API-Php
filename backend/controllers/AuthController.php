@@ -46,13 +46,4 @@ class AuthController
         }
     }
 
-    public function logout()
-    {
-        session_start();
-        session_destroy();
-        return [
-            'status' => 'success',
-            'message' => 'User logged out successfully.'
-        ];
-    }
 }

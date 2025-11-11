@@ -18,3 +18,24 @@ $data = $GameController->getUserMatchs($userId);
 header('Content-Type: application/json; charset=utf-8');
 
 echo json_encode($data);
+
+
+//jeito do meu gepeto
+
+
+// <?php
+// require_once __DIR__ . '/../../utils/session.php';
+// require_once __DIR__ . '/../../controllers/GameController.php';
+
+// header('Content-Type: application/json; charset=utf-8');
+
+// // Verifica se o usuário está logado
+// checkSession();
+
+// // O ID do jogador vem da sessão (não da URL)
+// $userId = $_SESSION['user_id'];
+
+// $controller = new GameMatchController();
+// $response = $controller->getUserMatchs($userId);
+
+// echo json_encode($response);
