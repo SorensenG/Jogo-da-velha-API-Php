@@ -40,7 +40,7 @@ class AuthController
             ];
         } else {
             return [
-                'status' => '401 not autorized',
+                'status' => '401 not authorized',
                 'message' => 'Invalid username or password.'
             ];
         }
