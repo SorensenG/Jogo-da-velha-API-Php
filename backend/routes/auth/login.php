@@ -9,4 +9,5 @@ $password = $data['password'] ?? '';
 $controller = new AuthController();
 $response = $controller->login($username, $password);
 
+http_response_code($response['status']);
 echo json_encode($response);

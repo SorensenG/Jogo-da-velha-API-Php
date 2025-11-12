@@ -13,27 +13,37 @@ class User
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($createUserSQL);
-        return $stmt->execute([
-            $registerData['nome'],
-            $registerData['nascimento'],
+        $success =  $stmt->execute([
+            $registerData['fullname'],     
+            $registerData['birthdate'],
             $registerData['cpf'],
-            $registerData['telefone'],
+            $registerData['phone'],
             $registerData['email'],
             $registerData['username'],
-            password_hash($registerData['senha'], PASSWORD_BCRYPT)
+            password_hash($registerData['password'], PASSWORD_BCRYPT)
         ]);
+         if ($success) {
+            $id = $pdo->lastInsertId();
+            return [
+                'id' => $id,
+                'username' => $registerData['username']
+            ];
+        }
+
+        return false;
     }
+    
 
-    public function findUserByUsername($username)
-    {
-        global $pdo;
+   public function findUserByUsername($username)
+{
+    global $pdo;
 
-        $findUserSql = "SELECT * FROM users WHERE username = ? LIMIT 1"; // limita a 1 para otimizar a consulta
-        $stmt = $pdo->prepare($findUserSql);
-        $stmt->execute([$username]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $sql = "SELECT * FROM users WHERE username = ? LIMIT 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$username]);
 
-    }
+    return $stmt->fetch(PDO::FETCH_ASSOC); // só 1 usuário
+}
 
     public function updateUserInfos($id, $updateData)
     {
@@ -53,3 +63,5 @@ class User
         ]);
     }
 }
+
+

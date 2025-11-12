@@ -1,10 +1,9 @@
- <?php
-require_once __DIR__ . '/../../utils/session.php';
+<?php
+require_once __DIR__ . '/../../controllers/AuthController.php';
 header('Content-Type: application/json');
 
-destroySession();
+$controller = new AuthController();
+$response = $controller->logout();
 
-echo json_encode([
-    'status' => 'success',
-    'message' => 'User logged out successfully.'
-]);
+http_response_code($response['status']);
+echo json_encode($response);
