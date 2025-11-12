@@ -7,8 +7,9 @@ function checkSession() {
     if (!isset($_SESSION['user_id'])) {
         http_response_code(401);
         echo json_encode(['status' => 'error', 'message' => 'Unauthorized: user not logged in']);
-        exit();
+        return -1;
     }
+    return $_SESSION['user_id'];
 }
 
 function destroySession() {

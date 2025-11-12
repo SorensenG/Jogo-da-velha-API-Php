@@ -26,16 +26,18 @@ class GameMatchController
             ];
         }
     }
-    public function saveGame($matchData)
+    public function saveGame($matchData, $userId)
     {
         $match = new GameMatch();
+
+        $matchData['user_id'] = $userId;
 
         try {
             $match->saveGame($matchData);
         } catch (Exception $e) {
             return [
                 'status' => '500',
-                'message' => 'Erro interno do servidor'
+                'message' => $e->getMessage(),
             ];
         }
     }

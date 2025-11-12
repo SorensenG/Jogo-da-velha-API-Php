@@ -1,3 +1,5 @@
+import saveGame from '../rotas.js/saveGame.js'
+
 (function () {
   const timeAttackLimits = { 2: 10, 4: 30, 6: 60, 8: 120 };
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -211,6 +213,14 @@
       ? `Parabéns! Você venceu em ${state.moves} jogadas e ${fmtTime(state.elapsed)}.`
       : `Fim de jogo! Você perdeu. Jogadas: ${state.moves}. Tempo: ${fmtTime(state.elapsed)}.`;
     addHistoryRow(victory);
+    console.log("SALVANDO")
+    saveGame(
+      `${state.size}x${state.size}`,
+      state.mode == 'classic' ? 'Classica' : 'Contra o Tempo',
+      state.elapsed, 
+      state.moves, 
+      victory ? 'Vitoria' : 'Derrota', 
+    )
     setTimeout(() => alert(msg), 50);
   }
 
