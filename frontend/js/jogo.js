@@ -1,4 +1,4 @@
-import saveGame from '../routes/saveGame'
+import saveGame from './../routes/saveGame.js'
 
 (function () {
   const timeAttackLimits = { 2: 10, 4: 30, 6: 60, 8: 120 };
