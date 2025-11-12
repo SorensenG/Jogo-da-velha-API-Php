@@ -22,7 +22,7 @@ class GameMatchController
         } catch (Exception $e) {
             return [
                 'status' => '500',
-                'message' => 'Erro interno do servidor',
+                'message' => $e->getMessage(),
             ];
         }
     }

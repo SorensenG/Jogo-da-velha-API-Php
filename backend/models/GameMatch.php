@@ -30,7 +30,7 @@ class GameMatch
 
         global $pdo;
 
-        $searchUserSQL = "SELECT * FROM partidas where user_id = ? ORDER BY data_parida DESC";
+        $searchUserSQL = "SELECT * FROM partidas where user_id = ? ORDER BY data_partida DESC";
 
         $stmt = $pdo->prepare($searchUserSQL);
         $stmt->execute([$userId]);
