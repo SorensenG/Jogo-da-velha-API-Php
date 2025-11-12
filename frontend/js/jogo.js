@@ -1,4 +1,4 @@
-import saveGame from '../rotas.js/saveGame.js'
+import saveGame from '../routes/saveGame'
 
 (function () {
   const timeAttackLimits = { 2: 10, 4: 30, 6: 60, 8: 120 };
