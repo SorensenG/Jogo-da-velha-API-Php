@@ -8,13 +8,11 @@
     <style>
       .card.revealed { transform: none !important; }
     </style>
+    <script src="./routes//history.js" defer></script>
 </head>
 <body>
     <div class="container">
         <header class="main-header">
-            <div class="welcome-message">
-                Bem-vindo, <span id="playerName">Jogador</span>!
-            </div>
             <nav>
                 <a href="jogo.html" class="active">Jogar</a>
                 <a href="ranking.html">Ranking Global</a>
@@ -59,11 +57,12 @@
                             <th>Resultado</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody id="sessionHistorybody"></tbody>
                 </table>
             </aside>
         </main>
     </div>
-    <script src="./js/jogo.js"></script>
+    <script type="module" src="./js/jogo.js"></script>
+    <script src="./routes/logout.js"></script>
 </body>
 </html>

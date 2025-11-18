@@ -9,9 +9,6 @@
 <body>
     <div class="container">
         <header class="main-header">
-             <div class="welcome-message">
-                Bem-vindo, <span>Jogador1</span>!
-            </div>
             <nav>
                 <a href="jogo.html">Jogar</a>
                 <a href="ranking.html">Ranking Global</a>
@@ -24,7 +21,7 @@
             <section>
                 <h2>Editar Informações Pessoais: <br> Ensira todos os dados, nao deixe nenhum campo em branco </h2>
             
-                <form action="jogo.html" method="get">
+                <form id="profile-form">
                     <div class="form-group">
                         <label for="username">Nome de Usuário</label>
                         <input type="text" id="username" name="username" value="Jogador1" readonly disabled>
@@ -58,6 +55,7 @@
             </section>
         </main>
     </div>
+    <script src="routes/perfil.js"></script>
 </body>
 </html>
 

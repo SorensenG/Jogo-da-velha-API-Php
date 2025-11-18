@@ -1,20 +1,20 @@
 <?php
-session_start();
-require_once __DIR__ . '/../controllers/GameController.php';
+require_once __DIR__ . '/../../controllers/GameController.php';
+require_once __DIR__ . '/../../utils/session.php';
 
-// pega userId da URL: /history.php?userId=123
-$userId = filter_input(INPUT_GET, 'userId', FILTER_VALIDATE_INT);
+header('Content-Type: application/json; charset=utf-8');
 
-if (!$userId && $userId !== 0) {
+$userId = checkSession();
+
+if ($userId == -1) {
     http_response_code(400);
-    header('Content-Type: application/json; charset=utf-8');
     echo json_encode(['error' => 'userId missing or invalid']);
     exit;
 }
 
-$GameController = new GameMatchController();
+$GameController = new GameMatchController(); // ou GameMatchController se for essa a classe certa
+
 $data = $GameController->getUserMatchs($userId);
 
-header('Content-Type: application/json; charset=utf-8');
-
+http_response_code(200);
 echo json_encode($data);

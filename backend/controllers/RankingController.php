@@ -6,22 +6,20 @@ class RankingController
 
     public function getTopPlayers()
     {
-
-        $match = new GameMatch();
-
-        $topPlayers = $match->topPlayers();
-
-        if ($topPlayers && count($topPlayers) > 0) {
+        try {
+            $match = new GameMatch();
+            $topPlayers = $match->topPlayers();
 
             return [
-                'status' => '200 ok',
+                'status' => 200,
                 'message' => 'top 10 players ranked sucessefully',
                 'data' => $topPlayers
             ];
-        } else {
+
+        } catch (Exception $e) {
             return [
-                'status' => '404 not found',
-                'message' => 'Sem jogadores no ranking'
+                'status' => 500,
+                'message' => $e->getMessage()
             ];
         }
     }
