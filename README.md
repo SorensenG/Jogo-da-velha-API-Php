@@ -64,13 +64,6 @@ The script prints created usernames and their test plaintext passwords for conve
 - To inspect DB content use phpMyAdmin (bundled with XAMPP) or the MySQL CLI.
 - To add validation or new fields, start by updating `backend/models/User.php` and `backend/controllers/AuthController.php`, then the corresponding frontend JS.
 
-**Next steps / Optional improvements**
-- Add server-side validation for email format and password strength.
-- Add uniqueness checks on update (email/CPF).
-- Add CSRF protection and require current password when changing to a new password.
 
-**Contact / Ownership**
-- Maintainer: repository owner (local project)
 
-Enjoy developing and testing!
 
