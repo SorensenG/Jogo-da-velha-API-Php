@@ -71,4 +71,58 @@ class AuthController
             'message' => 'User logged out successfully.'
         ];
     }
+
+    public function getProfile()
+    {
+        $userId = checkSession();
+        if ($userId === -1) {
+            return [
+                'status' => 401,
+                'message' => 'Unauthorized'
+            ];
+        }
+
+        $user = new User();
+        $userData = $user->findUserById($userId);
+
+        if ($userData) {
+            // Remove sensitive info
+            unset($userData['senha']);
+            return [
+                'status' => 200,
+                'user' => $userData
+            ];
+        }
+
+        return [
+            'status' => 404,
+            'message' => 'User not found'
+        ];
+    }
+
+    public function updateProfile($updateData)
+    {
+        $userId = checkSession();
+        if ($userId === -1) {
+            return [
+                'status' => 401,
+                'message' => 'Unauthorized'
+            ];
+        }
+
+        $user = new User();
+        $success = $user->updateUserInfos($userId, $updateData);
+
+        if ($success) {
+            return [
+                'status' => 200,
+                'message' => 'Profile updated successfully.'
+            ];
+        }
+
+        return [
+            'status' => 400,
+            'message' => 'Failed to update profile or nothing to change.'
+        ];
+    }
 }

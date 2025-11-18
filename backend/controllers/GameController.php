@@ -10,36 +10,53 @@ class GameMatchController
         try {
             $userMatchsData = $match->searchUserMatchs($userId);
 
-            if ($userMatchsData === false | count($userMatchsData) === 0) {
-                throw new Exception('Erro ao pegar dados de partida');
+            // Se ocorrer erro na consulta
+            if ($userMatchsData === false) {
+                throw new Exception('Erro ao buscar partidas do usuário');
             }
+
+            // ⚠️ IMPORTANTE:
+            // Se o usuário não tiver partidas, isso NÃO é erro → retornamos lista vazia.
             return [
-                'status' => '200 ok',
-                'message' => 'top 10 players ranked sucessefully',
-                'data' => $userMatchsData
+                'status' => 200,
+                'message' => 'Partidas encontradas com sucesso',
+                'data' => $userMatchsData   // pode ser []
             ];
 
         } catch (Exception $e) {
             return [
-                'status' => '500',
+                'status' => 500,
                 'message' => $e->getMessage(),
+                'data' => []
             ];
         }
     }
+
+
     public function saveGame($matchData, $userId)
     {
         $match = new GameMatch();
 
+        // adiciona user_id ao array
         $matchData['user_id'] = $userId;
 
         try {
-            $match->saveGame($matchData);
+            $success = $match->saveGame($matchData);
+
+            if (!$success) {
+                throw new Exception('Erro ao salvar a partida');
+            }
+
+            return [
+                'status' => 201,
+                'message' => 'Partida salva com sucesso'
+            ];
+
         } catch (Exception $e) {
             return [
-                'status' => '500',
-                'message' => $e->getMessage(),
+                'status' => 500,
+                'message' => $e->getMessage()
             ];
         }
     }
 }
-

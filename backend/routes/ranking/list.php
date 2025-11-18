@@ -1,5 +1,5 @@
   <?php
-require_once __DIR__ . './../../controllers/RankingController.php';
+require_once __DIR__ . '/../../controllers/RankingController.php';
 
 header('Content-Type: application/json');
 

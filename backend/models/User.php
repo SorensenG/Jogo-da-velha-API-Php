@@ -45,22 +45,54 @@ class User
     return $stmt->fetch(PDO::FETCH_ASSOC); // só 1 usuário
 }
 
+    public function findUserById($id)
+    {
+        global $pdo;
+
+        $sql = "SELECT * FROM users WHERE id = ? LIMIT 1";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function updateUserInfos($id, $updateData)
     {
         global $pdo;
 
-        $updateUserSql = "UPDATE users SET userName=?, phone=?, email=?, userPassword=? WHERE id=?";
+        $fields = [];
+        $params = [];
 
-        $stmt = $pdo->prepare($updateUserSql);
+        if (!empty($updateData['fullname'])) {
+            $fields[] = 'nome = ?';
+            $params[] = $updateData['fullname'];
+        }
 
-        return $stmt->execute([
-            $updateData['userName'],
-            $updateData['phone'],
-            $updateData['email'],
-            $updateData['email'],
-            password_hash($updateData, PASSWORD_BCRYPT),
-            $id
-        ]);
+        if (isset($updateData['phone'])) {
+            $fields[] = 'telefone = ?';
+            $params[] = $updateData['phone'];
+        }
+
+        if (!empty($updateData['email'])) {
+            $fields[] = 'email = ?';
+            $params[] = $updateData['email'];
+        }
+
+        if (!empty($updateData['password'])) {
+            $fields[] = 'senha = ?';
+            $params[] = password_hash($updateData['password'], PASSWORD_BCRYPT);
+        }
+
+        if (count($fields) === 0) {
+            // Nothing to update
+            return false;
+        }
+
+        $sql = 'UPDATE users SET ' . implode(', ', $fields) . ' WHERE id = ?';
+        $params[] = $id;
+
+        $stmt = $pdo->prepare($sql);
+        return $stmt->execute($params);
     }
 }
 
