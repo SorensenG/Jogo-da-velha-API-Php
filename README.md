@@ -1,229 +1,76 @@
-🎮 WebGaming - Jogo da Memória & Jogo da Velha
+**Project**
+- **Name**: Jogo da Velha / Jogo da Memória — PHP backend + static frontend
+- **Purpose**: Small web game with user registration/login, match history and a simple ranking system.
 
-API completa em PHP + MySQL para jogos multiplayer com sistema de autenticação, perfil de usuário, histórico de partidas e ranking global.
+**Repository Structure**
+- **`frontend/`**: static HTML/CSS/JS for the UI
+	- `index.html` — login
+	- `cadastro.html` — register
+	- `jogo.html` — game UI and logic
+	- `perfil.html` — profile editor
+	- `ranking.html` — ranking view
+	- `routes/` — small frontend JS modules (login, cadastro, saveGame, perfil etc.)
+- **`backend/`**: PHP API and DB helpers
+	- `config/database.php` — PDO connection to MySQL
+	- `models/` — data access (`User.php`, `GameMatch.php`)
+	- `controllers/` — request handling (`AuthController.php`, `GameController.php`, `RankingController.php`)
+	- `routes/` — public endpoints called by frontend (e.g. `backend/routes/auth/login.php`)
+	- `utils/` — helpers (`session.php`, `db_init.php`, `seed_db.php`)
 
+**Requirements**
+- PHP 7.4+ (with PDO + MySQL driver)
+- MySQL or MariaDB
+- A web server (Apache via XAMPP recommended on Windows)
 
-📋 Índice
+**Quick setup (XAMPP on Windows)**
+- Place repository in `C:\xampp\htdocs\Jogo-da-velha-API-Php`.
+- Start Apache and MySQL from XAMPP Control Panel.
 
-Sobre o Projeto
-Tecnologias
-Estrutura do Projeto
-Instalação
-Rotas da API
-Usuários de Teste
-Segurança
-Melhorias Futuras
-Contribuindo
-
-
-🎯 Sobre o Projeto
-O WebGaming é uma plataforma web que oferece jogos clássicos (Jogo da Memória e Jogo da Velha) com sistema completo de gerenciamento de usuários. O projeto segue a arquitetura MVC e fornece uma API RESTful para integração com o frontend.
-✨ Funcionalidades
-
-✅ Sistema de autenticação com sessões PHP
-✅ Cadastro e gerenciamento de perfil de usuário
-✅ Registro automático de partidas
-✅ Histórico de jogos pessoal
-✅ Ranking global de jogadores
-✅ Interface responsiva e moderna
-
-
-🛠 Tecnologias
-TecnologiaVersãoUsoPHP7.4+Backend e APIMySQL5.7+Banco de dadosApache2.4+Servidor webHTML5/CSS3/JS-FrontendPDO-Conexão com banco
-📦 Requisitos
-
-XAMPP (ou LAMP/WAMP)
-PHP com extensões: pdo, pdo_mysql, password
-MySQL ou MariaDB
-
-
-📁 Estrutura do Projeto
-WEBGAMING/
-│
-├── 🎨 frontend/                      # Interface do usuário
-│   ├── index.html                    # Tela de login
-│   ├── cadastro.html                 # Registro de novo usuário
-│   ├── jogo.html                     # Tabuleiro do jogo
-│   ├── perfil.html                   # Edição de perfil
-│   ├── ranking.html                  # Ranking global
-│   ├── config.html                   # Configurações de jogo
-│   ├── css/
-│   │   └── index.css                 # Estilos globais
-│   └── js/
-│       └── jogo.js                   # Lógica do jogo
-│
-├── ⚙️ backend/                       # API e lógica de negócio
-│   ├── config/
-│   │   └── database.php              # Conexão PDO
-│   │
-│   ├── models/                       # Camada de dados
-│   │   ├── User.php                  # Modelo de usuário
-│   │   └── Match.php                 # Modelo de partida
-│   │
-│   ├── controllers/                  # Lógica de controle
-│   │   ├── AuthController.php        # Autenticação
-│   │   ├── GameController.php        # Gerenciamento de jogos
-│   │   └── RankingController.php     # Sistema de ranking
-│   │
-│   ├── routes/                       # Endpoints da API
-│   │   ├── auth/
-│   │   │   ├── login.php             # POST - Login
-│   │   │   ├── register.php          # POST - Cadastro
-│   │   │   ├── logout.php            # GET/POST - Logout
-│   │   │   ├── profile.php           # GET - Dados do perfil
-│   │   │   └── update.php            # POST - Atualizar perfil
-│   │   │
-│   │   ├── game/
-│   │   │   ├── save.php              # POST - Salvar partida
-│   │   │   └── history.php           # GET - Histórico
-│   │   │
-│   │   └── ranking/
-│   │       └── list.php              # GET - Ranking global
-│   │
-│   └── utils/
-│       ├── session.php               # Gerenciamento de sessão
-│       ├── db_init.php               # Inicialização do banco
-│       └── seed_db.php               # Dados de teste
-│
-└── README.md
-
-🚀 Instalação
-1️⃣ Clonar ou baixar o projeto
-Coloque o projeto na pasta do servidor:
-bashC:\xampp\htdocs\Jogo-da-velha-API-Php
-2️⃣ Iniciar serviços
-Abra o XAMPP Control Panel e inicie:
-
-✅ Apache
-✅ MySQL
-
-3️⃣ Criar banco de dados
-Acesse no navegador ou execute via terminal:
-Opção 1 - Navegador:
-http://localhost/Jogo-da-velha-API-Php/backend/utils/db_init.php
-Opção 2 - Terminal:
-powershellcd C:\xampp\htdocs\Jogo-da-velha-API-Php
+**Initialize database and tables**
+- The project includes `backend/utils/db_init.php` which creates the database and tables when executed.
+- Run from project root (PowerShell):
+```powershell
 php backend/utils/db_init.php
-4️⃣ Popular com dados de teste (opcional)
-powershellphp backend/utils/seed_db.php
+```
 
-⚠️ Este comando cria 5 usuários de exemplo e 15 partidas (3 por usuário).
+**Seed sample data**
+- There is a seeder at `backend/utils/seed_db.php` which inserts example users and partidas (passwords are hashed).
+- Run (PowerShell):
+```powershell
+php backend/utils/seed_db.php
+```
+The script prints created usernames and their test plaintext passwords for convenience.
 
-5️⃣ Acessar o sistema
-Abra no navegador:
-http://localhost/Jogo-da-velha-API-Php/frontend/index.html
+**API Routes (examples)**
+- `backend/routes/auth/register.php` — POST JSON to register a user.
+- `backend/routes/auth/login.php` — POST JSON { username, password } to log in.
+- `backend/routes/auth/logout.php` — GET/POST to log out.
+- `backend/routes/auth/profile.php` — GET returns current logged-in user's profile (requires session cookie).
+- `backend/routes/auth/update.php` — POST JSON to update profile for logged-in user.
+- `backend/routes/game/save.php` — POST to save a partida/match.
+- `backend/routes/game/history.php` — GET user match history.
+- `backend/routes/ranking/list.php` — GET global ranking data.
 
-🌐 Rotas da API
-🔐 Autenticação
-MétodoRotaDescriçãoAutenticaçãoPOST/backend/routes/auth/register.phpCadastrar usuário❌ NãoPOST/backend/routes/auth/login.phpFazer login❌ NãoGET/POST/backend/routes/auth/logout.phpEncerrar sessão✅ SimGET/backend/routes/auth/profile.phpObter perfil✅ SimPOST/backend/routes/auth/update.phpAtualizar perfil✅ Sim
-🎮 Jogo
-MétodoRotaDescriçãoAutenticaçãoPOST/backend/routes/game/save.phpSalvar partida✅ SimGET/backend/routes/game/history.phpHistórico de partidas✅ Sim
-🏆 Ranking
-MétodoRotaDescriçãoAutenticaçãoGET/backend/routes/ranking/list.phpListar ranking global❌ Não
+**Frontend usage**
+- Open in browser after login: `http://localhost/Jogo-da-velha-API-Php/frontend/index.html`.
+- The frontend uses `fetch()` to call the backend `routes/*.php` endpoints and relies on PHP session cookies for authentication.
 
-📝 Exemplos de Requisição
-Login
-jsonPOST /backend/routes/auth/login.php
-Content-Type: application/json
+**Security & Notes**
+- Passwords are hashed using `password_hash(..., PASSWORD_BCRYPT)` in the PHP code.
+- `cpf` and `username` fields are marked `UNIQUE` in the DB; seeding may fail if duplicates exist.
+- For production, do not serve files directly from a dev XAMPP root without proper protections; sanitize and validate all inputs.
 
-{
-  "username": "anasouza",
-  "password": "Passw0rd!"
-}
-Atualizar Perfil
-jsonPOST /backend/routes/auth/update.php
-Content-Type: application/json
+**Development tips**
+- To inspect DB content use phpMyAdmin (bundled with XAMPP) or the MySQL CLI.
+- To add validation or new fields, start by updating `backend/models/User.php` and `backend/controllers/AuthController.php`, then the corresponding frontend JS.
 
-{
-  "fullname": "Ana Paula Souza",
-  "phone": "(11) 98765-4321",
-  "email": "ana.souza@example.com",
-  "password": "NovaSenha123!"
-}
+**Next steps / Optional improvements**
+- Add server-side validation for email format and password strength.
+- Add uniqueness checks on update (email/CPF).
+- Add CSRF protection and require current password when changing to a new password.
 
-👥 Usuários de Teste
-UsernameSenhaEmailanasouzaPassw0rd!ana.souza@example.combrunomSenha123!bruno.martins@example.comcarlafJogo2025!carla.ferreira@example.comdiegolMemoria#01diego.lima@example.comelisarTeste!234elisa.rocha@example.com
+**Contact / Ownership**
+- Maintainer: repository owner (local project)
 
-🔒 Nota: Todas as senhas são armazenadas com hash seguro (password_hash).
+Enjoy developing and testing!
 
-
-🔒 Segurança
-⚠️ Avisos Importantes
-
-🔴 Este projeto usa sessões PHP para autenticação
-🔴 Não há proteção CSRF implementada
-🔴 Validações de entrada são básicas
-🔴 Não use em produção sem as devidas melhorias
-
-✅ Recomendações para Produção
-
-Implementar HTTPS obrigatório
-Usar tokens JWT em vez de sessões
-Adicionar rate limiting nas rotas de login
-Validar e sanitizar todas as entradas
-Implementar CORS adequadamente
-Remover scripts de seeding do servidor
-Adicionar logs de auditoria
-Implementar proteção contra CSRF
-
-
-🚧 Melhorias Futuras
-Backend
-
- Validação completa de dados (email, CPF, telefone)
- Confirmação de senha atual antes de alterações
- Sistema de recuperação de senha
- Paginação no histórico e ranking
- DTOs para respostas padronizadas
- Testes automatizados (PHPUnit)
- Documentação Swagger/OpenAPI
-
-Frontend
-
- Feedback visual em vez de alert()
- Loading states durante requisições
- Validação de formulários em tempo real
- PWA (Progressive Web App)
- Modo escuro
- Internacionalização (i18n)
-
-Features
-
- Chat entre jogadores
- Partidas em tempo real (WebSocket)
- Sistema de conquistas
- Avatares customizáveis
- Estatísticas detalhadas
-
-
-🤝 Contribuindo
-Contribuições são bem-vindas! Para contribuir:
-
-Faça um fork do projeto
-Crie uma branch para sua feature (git checkout -b feature/NovaFeature)
-Commit suas mudanças (git commit -m 'Adiciona nova feature')
-Push para a branch (git push origin feature/NovaFeature)
-Abra um Pull Request
-
-📏 Padrões de Código
-
-Use PSR-12 para código PHP
-Mantenha consistência com o código existente
-Adicione comentários em lógicas complexas
-Escreva mensagens de commit descritivas
-
-
-📄 Licença
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
-
-📞 Contato
-
-📧 Email: seu-email@example.com
-💼 LinkedIn: Seu Nome
-🐙 GitHub: @seu-usuario
-
-
-<div align="center">
-Desenvolvido com 💙 por [Seu Nome]
-⭐ Se este projeto te ajudou, considere dar uma estrela!
-</div>
